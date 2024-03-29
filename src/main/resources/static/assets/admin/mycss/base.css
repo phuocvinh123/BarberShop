@@ -1,0 +1,52 @@
+.error {
+    color: red;
+    padding: 3px;
+    display: none;
+}
+
+.input-custom:invalid[focused="true"]~span {
+    display: block;
+}
+
+#sortPrice i {
+    display: none;
+}
+.image-container img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 1em;
+}
+
+.PAID {
+    background: #4eb1ef;
+    border: #2a4aee;
+    font-weight: bold;
+}
+.UNPAID{
+    background: yellow;
+    border: yellow;
+    font-weight: bold;
+}
+.CANCELLED{
+    background: #ee5d5d;
+    border: #480d0d;
+    font-weight: bold;
+}
+
+.FREE{
+    background: #4eb1ef;
+    border: #2a4aee;
+    font-weight: bold;
+}
+
+.BUSY{
+    background: #ee5d5d;
+    border: #480d0d;
+    font-weight: bold;
+}
+.status-select{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+}

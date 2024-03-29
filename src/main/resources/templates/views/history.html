@@ -1,0 +1,297 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="zxx">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title> Barber HTML-5 Template </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+  <style>
+    #formBody div {
+      display: flex;
+      /*flex-direction: column;*/
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    #formBody p {
+      margin-bottom: 0;
+      font-weight: bold;
+    }
+
+    #formBody span {
+      margin-left: 50px;
+    }
+  </style>
+
+
+  <!-- CSS here -->
+  <th:block th:replace="layout/css" />
+  <link rel="stylesheet" href="/assets/admin/vendor/css/core.css">
+</head>
+<body>
+<!-- ? Preloader Start -->
+<th:block th:replace="layout/navbar-history" />
+<main>
+  <!--? Hero Start -->
+  <div class="slider-area2">
+    <div class="slider-height2 d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero-cap hero-cap2 pt-70 text-center">
+              <h2>Lịch sử</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero End -->
+  <!--? Services Area Start -->
+  <section class="service-area section-padding30">
+    <div class="container">
+      <div class="modal fade" id="staticBackdropS" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+           aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 800px">
+          <div class="modal-content" style="margin-top: 100px" >
+
+            <div class="modal-header">
+              <img src="/assets/img/logo/logo.png" style="width: 25%">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel" style="color: #d19f68; font-weight: bold; font-size: large">Booking Detail</h5>
+            </div>
+            <div class="modal-body">
+              <form id="bookingForm">
+                <div >
+                  <div id="formBody">
+
+                  </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+<!--                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Time</th>
+              <th>Phone</th>
+              <th>Services</th>
+              <th>Total Price</th>
+              <th>Stylist</th>
+              <th>Status</th>
+              <th>Detail</th>
+              <!--          <th class="">Actions</th>-->
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0" id="tBodyHistory">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end mt-3">
+        <nav aria-label="...">
+          <ul class="pagination" id="pagination">
+
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+  <!-- Services Area End -->
+</main>
+<footer>
+  <th:block th:replace="layout/footer" />
+</footer>
+
+<!-- Scroll Up -->
+<div id="back-top">
+  <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<th:block th:replace="layout/js" />
+<script src="/assets/admin/vendor/libs/jquery/jquery.js"></script>
+<script src="/assets/admin/vendor/libs/popper/popper.js"></script>
+<script src="/assets/admin/vendor/js/bootstrap.js"></script>
+
+<script>
+  const formBodyS = document.getElementById('formBody');
+  const modalDetail = document.getElementById('staticBackdropS')
+  const tBodyS = document.getElementById("tBodyHistory");
+  let userId = 0;
+  // Lấy URL hiện tại
+  const currentUrl = window.location.href;
+
+  // Tìm vị trí của "/history/" trong URL
+  const historyIndex = currentUrl.indexOf("/history/");
+
+  // Kiểm tra xem URL có chứa "/history/" hay không
+  if (historyIndex !== -1) {
+    // Trích xuất UserId từ URL bằng cách lấy phần tử sau "/history/"
+    userId = currentUrl.slice(historyIndex + "/history/".length);
+  }
+  async function getListById(id) {
+    const response = await fetch('/api/bookings/' + id);
+    const result = await response.json();
+    renderTBody(result);
+    return result;
+  }
+  function renderTBody(items) {
+    let str = '';
+    items.forEach(e => {
+      str += renderItemStr(e);
+    })
+    tBodyS.innerHTML = str;
+  }
+
+  function renderItemStr(item) {
+    const dateTime = new Date(item.dayTimeBooking);
+    const formattedDateTime = `${dateTime.getFullYear()}-${(dateTime.getMonth() + 1).toString().padStart(2, '0')}-${dateTime.getDate().toString().padStart(2, '0')} ${dateTime.getHours().toString().padStart(2, '0')}:${dateTime.getMinutes().toString().padStart(2, '0')}`;
+
+    return `<tr>
+        <td>${item.id}</td>
+        <td>${item.name}</td>
+        <td>${formattedDateTime}</td>
+        <td>${item.phoneNumber}</td>
+        <td>${item.bookingDetails}</td>
+        <td>${item.totalPrice}</td>
+        <td>${item.stylist}</td>
+        <td style="color: blue">${item.status}
+
+         </td>
+         <td>
+            <button class="btn-primary" onclick="showdetail(${item.id})">Detail</button>
+        </td>
+
+    </tr>`;
+    }
+
+  async function showdetail(id) {
+    const res = await fetch('/api/bookings/detail/' + id);
+    const result = await res.json();
+    const str = renderDetail(result[0])
+    formBodyS.innerHTML = str;
+    // modalDetail.modal('show')
+    const modal = new bootstrap.Modal(modalDetail);
+    modal.show();
+  }
+
+  function renderDetail(item) {
+    let str = '';
+    const dateTime = new Date(item.dayTimeBooking);
+    const formattedDateTime = `${dateTime.getFullYear()}-${(dateTime.getMonth() + 1).toString().padStart(2, '0')}-${dateTime.getDate().toString().padStart(2, '0')} ${dateTime.getHours().toString().padStart(2, '0')}:${dateTime.getMinutes().toString().padStart(2, '0')}`;
+
+    str += `
+            <div>
+                  <p>Status:</p>
+                  <span style="color: blue">${item.status}</span>
+                </div>
+                <div>
+                  <p>Name:</p>
+                  <span>${item.name}</span>
+                </div>
+                <div>
+                  <p>Phone:</p>
+                  <span>${item.phoneNumber}</span>
+                </div>
+                <div>
+                  <p>Date:</p>
+                  <span>${formattedDateTime}</span>
+                </div>
+                <div>
+                  <p>Stylist:</p>
+                  <span>${item.stylist}</span>
+                </div>
+                <div>
+                  <p>Service:</p>
+                </div>
+                <div  style="background-color: #8d8d93; color: white">
+                   <label>Name</label>
+                    <label>Price</th>
+                </div>
+
+
+
+    `
+
+    const bookingdetail = item.bookingDetails;
+    const elements = bookingdetail.split(",");
+
+    elements.forEach(item => {
+      const parts = item.split("-");
+      const before = parts[0].trim();
+      const after = parts[1].trim();
+      str += `
+            <div>
+                   <label>${before}</label>
+                    <label>${after}</label>
+                </div>
+        `
+    })
+
+    str += `
+         <div style="background-color: #f1789d; color: white">
+                  <p>Total Price:</p>
+                  <span>${item.totalPrice}</span>
+                </div>
+    `
+
+    return str;
+  }
+
+    window.onload = async () => {
+      console.log(userId);
+      await renderTable();
+
+      const avatar = document.querySelector("#user-avatar");
+      const dropdownMenu = document.querySelector("#dropdown-menu");
+      avatar.addEventListener("click", function () {
+        if (dropdownMenu.style.display == "block") {
+          dropdownMenu.style.display = "none";
+        } else {
+          dropdownMenu.style.display = "block";
+        }
+      });
+
+
+    }
+
+  window.addEventListener("click", function (event) {
+    const dropdownMenu = document.querySelector("#dropdown-menu");
+    if (!event.target.matches("#user-avatar")) {
+      dropdownMenu.style.display = "none";
+    }
+  });
+
+    async function renderTable() {
+      console.log("aaa")
+      await getListById(userId);
+
+    }
+
+</script>
+
+
+
+
+</body>
+</html>

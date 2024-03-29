@@ -1,0 +1,14 @@
+<th:block th:fragment="serviceDetail">
+
+    <h4 th:text="${hairDetail.name}" style="font-size: large; margin-top: 10px"> </h4>
+    <p th:text="${hairDetail.price} + ' VND'" style="color: #cc874e; margin: 0"></p>
+    <p th:text="${hairDetail.description}"></p>
+    <div>
+        <img th:each = "image: ${hairDetail.images}" th:src = "${image}" style="height: 200px; width: 200px; margin-left: 30px;
+margin-bottom: 10px">
+    </div>
+    <a href="/booking">
+        <button class="btn mt-5" style="border-radius: 20px; scale: 0.8">Book Now</button>
+    </a>
+
+</th:block>

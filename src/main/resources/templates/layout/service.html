@@ -1,0 +1,28 @@
+<th:block th:fragment="service">
+    <div class="row" >
+        <div class="col-xl-4 col-lg-4 col-md-6" th:each="hairDetail:${hairDetails}">
+            <div class="services-caption text-center mb-30">
+                <div class="service-icon">
+                    <img th:src="${hairDetail.images[0]}" style="height: 200px; width: 200px">
+                </div>
+                <div class="service-cap" style="height: 80px; position: relative">
+                    <h4 th:text="${hairDetail.name}" style="font-size: large; margin-top: 10px"> </h4>
+<!--                    <p th:text="${hairDetail.description}"></p>-->
+                    <div class="price" style="position: absolute;bottom: 0;left: 0;right: 0;">
+                        <p th:text="${hairDetail.price} + ' VND'" style="color: #cc874e"></p>
+<!--                        <p th:text="${#strings.substringBefore(hairDetail.price.toString(), '.')} + ' VND'" style="color: #cc874e"></p>-->
+                    </div>
+                    <div style="position: absolute;top: 70px;left: 0;right: 0;">
+<!--                        <a th:href = "'/service/' + ${hairDetail.id}"></a>-->
+                        <a th:href = "'/service/' + ${hairDetail.id}">
+                            <p style="color: blue; cursor: pointer">Xem thêm</p>
+                        </a>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

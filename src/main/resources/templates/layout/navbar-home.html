@@ -1,0 +1,75 @@
+<th:block th:fragment="header">
+  <div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="/assets/img/logo/loder.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Preloader Start -->
+  <header>
+    <!--? Header Start -->
+    <div class="header-area header-transparent pt-20">
+      <div class="main-header header-sticky">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <!-- Logo -->
+            <div class="col-xl-2 col-lg-2 col-md-1">
+              <div class="logo">
+                <a id="logo" href="/home"><img src="/assets/img/logo/logo.png" alt=""></a>
+              </div>
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10">
+              <div class="menu-main d-flex align-items-center justify-content-end">
+                <!-- Main-menu -->
+                <div class="main-menu f-right d-none d-lg-block">
+                  <nav>
+                    <ul id="navigation">
+                      <li class="active"><a href="/home">Trang chủ</a></li>
+                      <li><a href="/services">Dịch vụ</a></li>
+                      <li><a href="/booking">Đặt Lịch</a></li>
+                      <li><a href="/portfolio">Stylist</a></li>
+                    </ul>
+                  </nav>
+                </div>
+
+                <div class="header-right-btn f-right d-none d-lg-block ml-30" th:if="${user == null}">
+                  <input type="hidden" th:value= "0" id="idUser">
+                  <a href="/login" >
+                    <button class="btn header-btn" id="btn-login">Login</button>
+                  </a>
+                </div>
+
+                <div id="user-info" th:if="${user}">
+                  <input type="hidden" th:value="${user.id}" id="idUser">
+                  <img id="user-avatar" src="https://banner2.cleanpng.com/20180714/hxu/kisspng-user-profile-computer-icons-login-clip-art-profile-picture-icon-5b49de2f52aa71.9002514115315676633386.jpg">
+                  <div class="dropdown-content" id="dropdown-menu">
+                    <th:block th:if="${isAdmin}">
+                      <span style="border-bottom: 1px solid black;" th:text="${user.username} + ' - Admin'"></span>
+                      <a href="/admin">Manager Booking</a>
+                    </th:block>
+
+                    <th:block th:if="${isUser}">
+                      <span style="border-bottom: 1px solid black;" th:text="${user.username} + ' - User'"></span>
+                      <a th:href="@{'history/' + ${user.id}}" >History Booking</a>
+                    </th:block>
+                    <a href="/logout" id="logout-button">Logout</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="col-12">
+              <div class="mobile_menu d-block d-lg-none"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Header End -->
+  </header>
+</th:block>

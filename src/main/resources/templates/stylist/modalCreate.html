@@ -1,0 +1,37 @@
+<th:block th:fragment="modalCreate">
+  <div class="modal fade" id="modalCreateStylist" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Modal create</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formCreateSty" method="post">
+            <div class="row mb-3">
+              <div class="col-lg-4">
+                <label for="fullNameCreSty">FullName</label>
+                <input type="text" id="fullNameCreSty" name="fullNameCreSty" class="form-control">
+              </div>
+
+              <div class="col-lg-4">
+                <label for="phoneCreSty">Phone</label>
+                <input type="tel" id="phoneCreSty" name="phoneCreSty" class="form-control">
+              </div>
+
+              <div class="col-lg-4">
+                <label for="StatusCreSty">Status</label>
+                <input type="tel" id="StatusCreSty" name="StatusCreSty" class="form-control">
+              </div>
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btnCreateSty">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>

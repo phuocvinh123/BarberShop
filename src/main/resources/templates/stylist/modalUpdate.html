@@ -1,0 +1,39 @@
+<th:block th:fragment="modalUpdate">
+  <div class="modal fade" id="modalUpdateStylist" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Modal update</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formUpdate" method="post">
+            <div class="row mb-3">
+              <input type="hidden" id="idUpSty">
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-lg-4">
+                <label for="fullNameUpSty">FullName</label>
+                <input type="text" id="fullNameUpSty" name="fullNameUpSty" class="form-control">
+              </div>
+              <div class="col-lg-4">
+                <label for="phoneUpSty">Phone</label>
+                <input type="tel" id="phoneUpSty" name="phoneUpSty" class="form-control">
+              </div>
+              <div class="col-lg-4">
+                <label for="statusUpSty">Phone</label>
+                <input type="tel" id="statusUpSty" name="statusUpSty" class="form-control">
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>

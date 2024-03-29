@@ -1,0 +1,80 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="zxx">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title> Barber HTML-5 Template </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+
+  <!-- CSS here -->
+  <th:block th:replace="layout/css" />
+</head>
+<body>
+<!-- ? Preloader Start -->
+
+  <th:block th:replace="layout/navbar-portfolio" />
+  <!-- Header End -->
+
+<main>
+  <div class="slider-area2">
+    <div class="slider-height2 d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero-cap hero-cap2 pt-70 text-center">
+              <h2>Stylists</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero End -->
+  <!--? Services Area Start -->
+  <div class="team-area pb-180">
+    <div class="container">
+      <!-- Section Tittle -->
+      <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-8 col-md-11 col-sm-11">
+          <div class="section-tittle text-center mb-100">
+
+            <h2 class="mt-2"></h2>
+          </div>
+        </div>
+      </div>
+      <div class="row team-active dot-style">
+        <!-- single Tem -->
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-" th:each="stylist:${stylists}">
+          <div class="single-team mb-80 text-center">
+            <div class="team-img">
+              <img th:src="${stylist.images[0]}" style="width: 370px; height: 492.4px">
+            </div>
+            <div class="team-caption">
+              <span>Master Barber</span>
+              <h3><a href="/booking" th:text="${stylist.name}"></a></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  <!--? Footer Start-->
+  <th:block th:replace="layout/footer" />
+  <!-- Footer End-->
+</footer>
+<!-- Scroll Up -->
+<div id="back-top" >
+  <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<!-- JS here -->
+
+<th:block th:replace="layout/js" />
+
+</body>
+</html>

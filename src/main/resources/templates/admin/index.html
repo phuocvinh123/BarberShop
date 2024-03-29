@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+<th:block th:replace="admin/layout.html :: header"></th:block>
+<div class="container mt-5">
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 800px">
+      <div class="modal-content">
+
+        <div class="modal-header">
+            <img src="/assets/img/logo/logo.png" style="width: 25%">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel" style="color: #d19f68; font-weight: bold; font-size: large">Booking Detail</h5>
+        </div>
+        <div class="modal-body">
+          <form id="bookingForm">
+            <div class="row">
+              <div id="formBody">
+
+            </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" onclick="messagePrint()">Print</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>No.</th>
+          <th>Name</th>
+          <th>Time</th>
+          <th>Phone</th>
+          <th>Services</th>
+          <th>Total Price</th>
+          <th>Stylist</th>
+          <th>Status</th>
+          <th>Detail</th>
+<!--          <th class="">Actions</th>-->
+        </tr>
+        </thead>
+        <tbody class="table-border-bottom-0" id="tBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <nav aria-label="...">
+      <ul class="pagination" id="pagination">
+
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<th:block th:replace="admin/layout.html :: footer"></th:block>
+<script src="/assets/admin/myjs/booking.js"></script>
+</html>

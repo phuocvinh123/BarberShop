@@ -1,0 +1,172 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title> Barber HTML-5 Template </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+  <!-- CSS here -->
+  <th:block th:replace="layout/css" />
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <style>
+    #serviceBooker , #stylistBooker{
+      display: block !important;
+    }
+    .nice-select{
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+<!-- ? Preloader Start -->
+<th:block th:replace="layout/navbar-booking" />
+<main>
+  <!--? Hero Start -->
+  <div class="slider-area2">
+    <div class="slider-height2 d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero-cap hero-cap2 pt-30 text-center">
+              <h2><span style="color: #D19F68;">BARBER</span> HAIR SALON</h2>
+            </div>
+            <div class="text-center mb-3 m-4">
+              <h1 class="white-color">Giờ mở cửa: 10:00 - 21:00</h1>
+            </div>
+            <div class="text-center mb-3">
+              <h1 class="white-color">SĐT: 0123.456.789</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero End -->
+  <!--? Services Area Start -->
+  <section class="service-area">
+    <div id="booking" class="section">
+      <div class="section-center">
+        <div class="container">
+          <div class="row">
+            <div class="booking-form">
+              <div class="form-header">
+                <h1 style="color: #D19F68;">ĐẶT LỊCH</h1>
+              </div>
+              <form id="form-booking">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <span class="form-label">Họ và tên</span>
+                      <th:block>
+                        <input class="form-control" type="text" placeholder="Enter your name" id="nameBooker" name="name" th:value="${user.fullName}" th:if="${user != null}">
+                      </th:block>
+                      <input class="form-control" type="text" placeholder="Enter your name" id="nameBooker" name="name" th:if="${user == null}">
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="form-group">
+                      <span class="form-label">Số điện thoại</span>
+                      <th:block>
+                        <input class="form-control" type="tel" placeholder="Enter your phone number" id="phoneBooker" name="phoneNumber" th:value="${user.phoneNumber}" th:if="${user != null}">
+                      </th:block>
+                      <input class="form-control" type="tel" placeholder="Enter your phone number" id="phoneBooker" name="phoneNumber" th:if="${user == null}">
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="form-group">
+                  <span class="text-lg-center form-label" style="font-size: 28px; color: #D19F68;">Thông tin dịch vụ</span>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px">
+                  <span class="form-label">Chọn dịch vụ</span>
+
+                  <select class="form-select" id="serviceBooker">
+                    <option th:each="hairDetail : ${hairDetails}" th:value="${hairDetail.value}" th:text="${hairDetail.name + ' : ' + hairDetail.price } + ' Đ'"></option>
+                  </select>
+
+                  <button type="button" onclick="addService(); updateTotalPrice();" class="add-service-button">Thêm dịch vụ</button>
+                </div>
+
+                <div id="selectedServices"  >
+                  <!-- Các dịch vụ đã chọn sẽ được hiển thị ở đây -->
+                </div>
+
+                <div id="totalPrice" >
+                  <!-- Tổng tiền --><h2 class="form-label" >Total Price: <span id="totalPriceValue" ></span> </h2>
+                </div>
+
+
+                <div class="form-group">
+                  <span class="form-label">Chọn kĩ thuật viên</span>
+                  <select class="form-select" type="text" id="stylistBooker" name="stylist" onchange="showTimeFree(this)">
+                    <option th:each="stylist : ${stylists}" th:value="${stylist.value}" th:text="${stylist.name}" >
+                    </option>
+                  </select>
+                </div>
+
+
+                <div class="form-group">
+                  <span class="form-label">Chọn ngày đặt lịch</span>
+                  <input class="form-control" type="date"  id="dayBooking" onchange="formatInputDate(); showTimeFreeDate(this)" name="dayBooking">
+                </div>
+
+                <div class="form-group">
+                  <span class="form-label">Chọn khung giờ</span>
+                </div>
+
+                <div id="div-time-button" class="form-group time-booking">
+                  <div class="row">
+
+                  </div>
+                </div>
+
+<!--                // Show khung gio-->
+
+                <div class="form-btn">
+                  <button type= "submit" class="btn header-btn" style="width: 100%; margin: 25px 0;" id="btnBooking">Book Now</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Services Area End -->
+</main>
+<footer>
+  <!--? Footer Start-->
+  <th:block th:replace="layout/footer" />
+  <!-- Footer End-->
+</footer>
+<!-- Scroll Up -->
+<div id="back-top">
+  <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<!-- JS here -->
+
+
+<script th:if="${user != null}">
+  const nameBooker = document.getElementById("nameBooker");
+  const phoneBooker = document.getElementById("phoneBooker");
+  if (nameBooker && phoneBooker) {
+    nameBooker.setAttribute("disabled", "true");  
+    phoneBooker.setAttribute("disabled", "true");
+  }
+</script>
+<th:block th:replace="layout/js" />
+
+</body>
+
+</html>
